@@ -1,0 +1,4 @@
+.idea/
+bookmarks/db.sqlite3
+bookmarks/*/__pycache__/
+bookmarks/*/migrations/__pycache__/
