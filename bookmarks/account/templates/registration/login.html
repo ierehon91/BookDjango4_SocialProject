@@ -3,12 +3,12 @@
 {% block title %}Аторизация{% endblock %}
 
 {% block content %}
-<h1>Авторизация</h1>
-{% if form.errors %}
-    <p>Ваши логи и пароль неверны. Повторите ещё раз...</p>
-{% else %}
-    <p>Пожалуйста укажите для авторизации</p>
-{% endif %}
+    <h1>Авторизация</h1>
+    {% if form.errors %}
+        <p>Ваши логи и пароль неверны. Повторите ещё раз...</p>
+    {% else %}
+        <p>Пожалуйста укажите для авторизации</p>
+    {% endif %}
 
     <div class="login-form">
         <form action="{% url 'login' %}" method="post">
@@ -17,6 +17,9 @@
             <input type="hidden" name="next" value="{{ next }}">
             <p><input type="submit" value="Вход"></p>
         </form>
+        <p>
+            <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+        </p>
     </div>
 
 {% endblock %}
