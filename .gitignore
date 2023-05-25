@@ -3,3 +3,5 @@ bookmarks/db.sqlite3
 bookmarks/*/__pycache__/
 bookmarks/*/migrations/__pycache__/
 bookmarks/media/
+bookmarks/*.key
+bookmarks/*.crt
