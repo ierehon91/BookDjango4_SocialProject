@@ -25,4 +25,19 @@
         </p>
     </div>
 
+    <div class="social">
+        <ul>
+            <li class="facebook">
+                <a href="{% url 'social:begin' 'facebook' %}">
+                    Facebook
+                </a>
+            </li>
+            <li class="twitter">
+                <a href="{% url 'social:begin' 'twitter' %}">
+                    Twitter
+                </a>
+            </li>
+        </ul>
+    </div>
+
 {% endblock %}
