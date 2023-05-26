@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import SocialAuthorizationsSettings
+from bookmarks import SocialAuthorizationsSettings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -108,6 +108,7 @@ AUTHENTICATION_BACKENDS = [
     'account.authenticate.EmailAuthBackend',
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
 ]
 
 
@@ -148,3 +149,6 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_TWITTER_KEY = SocialAuthorizationsSettings.SOCIAL_AUTH_TWITTER_KEY  # Ключ API Twitter
 SOCIAL_AUTH_TWITTER_SECRET = SocialAuthorizationsSettings.SOCIAL_AUTH_TWITTER_SECRET  # Секрет API Twitter
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = SocialAuthorizationsSettings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY  # ИД клиента Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = SocialAuthorizationsSettings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  # Секрет клиента Google
