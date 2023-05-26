@@ -109,6 +109,7 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.vk.VKOAuth2',
 ]
 
 
@@ -152,6 +153,9 @@ SOCIAL_AUTH_TWITTER_SECRET = SocialAuthorizationsSettings.SOCIAL_AUTH_TWITTER_SE
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = SocialAuthorizationsSettings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY  # ИД клиента Google
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = SocialAuthorizationsSettings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  # Секрет клиента Google
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = SocialAuthorizationsSettings.SOCIAL_AUTH_VK_OAUTH2_KEY
+SOCIAL_AUTH_VK_OAUTH2_SECRET = SocialAuthorizationsSettings.SOCIAL_AUTH_VK_OAUTH2_SECRET
 
 SOCIAL_AUTH_PIPELINE = [
     'social_core.pipeline.social_auth.social_details',
