@@ -56,7 +56,7 @@ function bookmarkletLaunch(){
             window.open(siteUrl + 'images/create/?url='
                 + encodeURIComponent(imageSelected.src)
                 + '&title='
-                + encodeURIComponent(imageSelected.title),
+                + encodeURIComponent(document.title),
                 '_blank'
             );
         })

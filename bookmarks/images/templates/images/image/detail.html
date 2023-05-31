@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ image.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ image.title }}</h1>
+    <img src="{{ image.image.url }}" alt="{{ image.title }}" class="image-detail">
+
+    <div class="image-info">
+        <div>
+            <span class="count">
+                &#10084; {{ image.users_like.count }}
+            </span>
+        </div>
+        {{ image.description|linebreaks }}
+    </div>
+
+    <div class="image-likes">
+        {% for user in image.users_like.all %}
+            <div>
+                {% if user.profile.photo %}
+                    <img src="{{ user.profile.photo.url }}" alt="">
+                {% endif %}
+                <p>{{ user.first_name }}</p>
+            </div>
+            {% empty %}
+                Пока никто не оставил лайков под этим фото.
+        {% endfor %}
+    </div>
+{% endblock %}
