@@ -7,3 +7,5 @@ bookmarks/*.key
 bookmarks/*.crt
 bookmarks/bookmarks/SocialAuthorizationsSettings.py
 bookmarks/__pycache__/
+cert.key
+cert.crt
