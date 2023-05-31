@@ -6,6 +6,7 @@ cryptography==40.0.2
 defusedxml==0.7.1
 Django==4.2.1
 django-extensions==3.2.1
+easy-thumbnails==2.8.5
 idna==3.4
 MarkupSafe==2.1.2
 oauthlib==3.2.2
