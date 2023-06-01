@@ -11,25 +11,76 @@
     <a href="{{ image.image.url }}"></a>
     <img src="{% thumbnail image.image 300x0 %}" alt="{{ image.title }}" class="image-detail">
 
-    <div class="image-info">
-        <div>
-            <span class="count">
-                &#10084; {{ image.users_like.count }}
-            </span>
-        </div>
-        {{ image.description|linebreaks }}
-    </div>
-
-    <div class="image-likes">
-        {% for user in image.users_like.all %}
+    {% with image.users_like.all as users_like %}
+        <div class="image-info">
             <div>
-                {% if user.profile.photo %}
-                    <img src="{{ user.profile.photo.url }}" alt="">
-                {% endif %}
-                <p>{{ user.first_name }}</p>
+            <span class="count">
+                    &#10084; <span class="total">{{ image.users_like.count }}</span>
+            </span>
+                <a href="#" data-id="{{ image.id }}"
+                   data-action="{% if request.user in users_like %}un{% endif %}like"
+                   class="like button">
+                    {% if request.user not in users_like %}
+                        &#9825;
+                    {% else %}
+                        &#9829;
+                    {% endif %}
+                </a>
             </div>
+            {{ image.description|linebreaks }}
+        </div>
+
+        <div class="image-likes">
+            {% for user in users_like %}
+                <div>
+                    {% if user.profile.photo %}
+                        <img src="{{ user.profile.photo.url }}" alt="">
+                    {% endif %}
+                    <p>{{ user.first_name }}</p>
+                </div>
             {% empty %}
                 Пока никто не оставил лайков под этим фото.
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+{% endblock %}
+
+{% block domrady %}
+
+    const url = '{% url "images:like" %}';
+    let options = {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+        mode: 'same-origin',
+    }
+
+    document.querySelector('a.like').addEventListener('click', function(e){
+        e.preventDefault();
+        let likeButton = this;
+
+        // добавить форму запроса
+        let formData = new FormData();
+        formData.append('id', likeButton.dataset.id);
+        formData.append('action', likeButton.dataset.action);
+        options['body'] = formData;
+
+        // отправить HTTP запрос
+        fetch(url, options).then(response => response.json()).then(data => {
+
+            if (data['status'] === 'ok')
+            {
+                let previousAction = likeButton.dataset.action;
+
+                // переключить текст кнопки и атрибута data-action
+                let action = previousAction === 'like' ? 'unlike' : 'like';
+                likeButton.dataset.action = action;
+                likeButton.innerHTML = action === 'like' ? '&#9825;' : '&#9829;';
+
+                // обновить количество лайков
+                let likeCount = document.querySelector('span.count .total');
+                let totalLikes = parseInt(likeCount.innerHTML)
+                likeCount.innerHTML = previousAction === 'like' ? totalLikes + 1 : totalLikes - 1
+            }
+        })
+    });
 {% endblock %}
