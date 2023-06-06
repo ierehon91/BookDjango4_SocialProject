@@ -6,6 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import ImageCreateForm
 from .models import Image
+from actions.utils import create_action
 
 
 @login_required
@@ -17,6 +18,7 @@ def image_create(request):
             new_image = form.save(commit=False)
             new_image.user = request.user
             new_image.save()
+            create_action(request.user, 'сохранил изображение', new_image)
             messages.success(request, 'Изображение успешно добавлено')
             return redirect(new_image.get_absolute_url())
     else:
@@ -39,10 +41,9 @@ def image_like(request):
             image = Image.objects.get(id=image_id)
             if action == 'like':
                 image.users_like.add(request.user)
-                print('like')
+                create_action(request.user, 'поставил лайк изображению', image)
             else:
                 image.users_like.remove(request.user)
-                print('unlike')
             return JsonResponse({'status': 'ok'})
         except Image.DoesNotExist:
             pass
