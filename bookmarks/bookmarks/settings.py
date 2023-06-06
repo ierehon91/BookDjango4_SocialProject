@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['bookmarks.ru', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'actions.apps.ActionsConfig',
     'images.apps.ImagesConfig',
     'account.apps.AccountConfig',
     'django.contrib.admin',
