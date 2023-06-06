@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from actions.utils import create_action
+from actions.models import Action
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile, Contact
 
@@ -31,7 +32,14 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list('id', flat=True)
+
+    if following_ids:
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions.select_related('user', 'user__profile')[:10].prefetch_related('target')[:10]
+    print(actions)
+    return render(request, 'account/dashboard.html', {'section': 'dashboard', 'actions': actions})
 
 
 def register(request):
